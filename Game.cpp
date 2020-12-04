@@ -32,6 +32,9 @@ Game::Game(
     if (_snakes == _ladders) 
         throw std::invalid_argument("The game does not allow the same number of snakes and ladders"); 
 
+    if (_snakes == 30)
+        throw std::logic_error("The last tile cannot be a snake tile, it creates and impossible game");
+
     type = _type;
     turns = _turns;
     snakes = _snakes;
@@ -105,15 +108,15 @@ void Game::start() {
             std::cout << players[player_on_game].get_name() 
                 << " (Player "
                 << player_on_game + 1 
-                << ") wins the game";
+                << ") wins the game\n";
 
             break;
         }
 
-        std::cout << player_on_game + 1 << turn 
+        std::cout << player_on_game + 1 << " " << turn 
             << " " << tiles.at(tile_index - 1)->get_index()
             << " " << dice_throw
-            << " " << tiles.at(tile_index)->get_label()
+            << " " << tiles.at(tile_index - 1)->get_label()
             << " " << players[player_on_game].get_tile_index() << "\n";
         
         turn++;
