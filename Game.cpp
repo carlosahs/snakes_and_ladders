@@ -99,7 +99,7 @@ void Game::start() {
         
         int tile_index { players[player_on_game].get_tile_index() };
         
-        players[player_on_game] += tiles.at(tile_index)->effect();
+        players[player_on_game] += tiles.at(tile_index - 1)->effect();
 
         if (players[player_on_game].won()) {
             std::cout << players[player_on_game].get_name() 
@@ -108,14 +108,6 @@ void Game::start() {
                 << ") wins the game";
 
             break;
-        }
-
-        if (tile_index > players[player_on_game].get_tile_index()) {
-            if (type == 'M')
-                std::cout << "You got a ladder\n";
-        } else if (tile_index < players[player_on_game].get_tile_index()) {
-            if (type == 'M')
-                std::cout << "You got a snake\n";
         }
 
         std::cout << player_on_game + 1 << turn 
