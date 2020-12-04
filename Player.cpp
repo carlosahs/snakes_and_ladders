@@ -36,6 +36,7 @@ Player& Player::operator+=(int _tile_index) {
 
     // player wins if they reach the final tile which is the 30th
     if (tile_index >= MAX_TILE_INDEX) winner = true;
+    else if (winner) winner = false;
 
     return *this;
 }

@@ -22,7 +22,7 @@ class Game {
         Game();
         Game(
             char, int, int, int,
-            std::vector<Tile*>, Dice, Player[2]
+            Dice, Player[2]
         );
         
         void start();

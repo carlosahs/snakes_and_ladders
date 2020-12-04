@@ -20,17 +20,17 @@ Game::Game() {
 }
 
 Game::Game(
-    char _type, int _turns, int _snakes, int _ladders,
-    std::vector<Tile*> _tiles, Dice _dice, Player _players[2]
+    char _type, int _turns, int _snakes,
+    int _ladders, Dice _dice, Player _players[2]
 ) {
-    if (_tiles.size() != MAX_TILE_INDEX) 
-        throw std::invalid_argument("Input vector of tiles has length greater or lower than 30");
-
     if (_dice.get_faces() > 10) 
         throw std::invalid_argument("The game does not accept a dice with more than 10 faces");
 
-    if (_type != 'A' || _type != 'M') 
+    if (!(_type == 'A' || _type == 'M')) 
         throw std::invalid_argument("Game type not supported");
+
+    if (_snakes == _ladders) 
+        throw std::invalid_argument("The game does not allow the same number of snakes and ladders"); 
 
     type = _type;
     turns = _turns;
@@ -111,11 +111,14 @@ void Game::start() {
         }
 
         std::cout << player_on_game + 1 << turn 
-            << " " << tiles.at(tile_index)->get_index()
+            << " " << tiles.at(tile_index - 1)->get_index()
             << " " << dice_throw
             << " " << tiles.at(tile_index)->get_label()
             << " " << players[player_on_game].get_tile_index() << "\n";
         
         turn++;
     }
+
+    if (!(players[0].won() || players[1].won()))
+        std::cout << "Game ran out of turns\n";
 }
