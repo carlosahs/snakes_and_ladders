@@ -46,12 +46,12 @@ Game::Game(
 }
 
 void Game::fill_tiles(bool use_randomized) {
-    for (int i { 0 }; i < MAX_TILE_INDEX; i++) {
-        if ((i + 1) % snakes == 0) {
+    for (int i { 1 }; i <= MAX_TILE_INDEX; i++) {
+        if (i % snakes == 0) {
             use_randomized 
                 ? tiles.push_back(new SnakeTile(i, dice.throw_dice())) 
                 : tiles.push_back(new SnakeTile(i, 5));
-        } else if ((i + 1) % ladders == 0) {
+        } else if (i % ladders == 0) {
             use_randomized 
                 ? tiles.push_back(new LadderTile(i, dice.throw_dice())) 
                 : tiles.push_back(new LadderTile(i, 5));
